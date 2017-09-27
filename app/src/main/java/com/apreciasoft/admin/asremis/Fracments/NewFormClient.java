@@ -53,31 +53,31 @@ public class NewFormClient extends AppCompatActivity implements VerticalStepperF
 
 
 
-        private VerticalStepperFormLayout verticalStepperForm;
-        public EditText fisrtName;
-        public  EditText latName;
-        public  EditText mail;
-        public  EditText pass;
-        public  EditText phone;
+    private VerticalStepperFormLayout verticalStepperForm;
+    public EditText fisrtName;
+    public  EditText latName;
+    public  EditText mail;
+    public  EditText pass;
+    public  EditText phone;
 
-        public  int idCostCenter;
-        public  int idCompanyAcount;
-        public Spinner spinner1;
-        public Spinner spinner2;
+    public  int idCostCenter;
+    public  int idCompanyAcount;
+    public Spinner spinner1;
+    public Spinner spinner2;
 
-        public List<acountCompany> listAcountCompany = null;
-        public  List<costCenterCompany>   listCostCenter  = null;
+    public List<acountCompany> listAcountCompany = null;
+    public  List<costCenterCompany>   listCostCenter  = null;
 
-        private static String[] COSTCENTER = new String[0];
-        private static String[] ACOUNT = new String[0];
-
-
+    private static String[] COSTCENTER = new String[0];
+    private static String[] ACOUNT = new String[0];
 
 
-        ServicesDriver apiDriver = null;
 
 
-        public ProgressDialog loading;
+    ServicesDriver apiDriver = null;
+
+
+    public ProgressDialog loading;
 
 
     @Override
@@ -88,7 +88,7 @@ public class NewFormClient extends AppCompatActivity implements VerticalStepperF
         setTitle("Nuevo Cliente!");
 
 
-        String[] mySteps = {"Nombre ","Apellido","Telefono","Email","CUETA/C.COSTO", "Contraseña"};
+        String[] mySteps = {"Nombre ","Apellido","Telefono","Email", "Contraseña","CUETA/C.COSTO"};
         int colorPrimary = ContextCompat.getColor(getApplicationContext(), R.color.colorPrimary);
         int colorPrimaryDark = ContextCompat.getColor(getApplicationContext(), R.color.colorPrimaryDark);
 
@@ -182,9 +182,9 @@ public class NewFormClient extends AppCompatActivity implements VerticalStepperF
                             _setSpinersAcaunt();
                         } else if (response.code() == 404) {
 
-                            Toast.makeText(getBaseContext(),
+                           /* Toast.makeText(getBaseContext(),
                                     "No Exiten , Cuentas de este dominio", Toast.LENGTH_SHORT)
-                                    .show();
+                                    .show();*/
 
                         } else {
                             AlertDialog alertDialog = new AlertDialog.Builder(NewFormClient.this).create();
@@ -207,19 +207,10 @@ public class NewFormClient extends AppCompatActivity implements VerticalStepperF
 
                     @Override
                     public void onFailure(Call<List<acountCompany>> call, Throwable t) {
-                        AlertDialog alertDialog = new AlertDialog.Builder(NewFormClient.this).create();
-                        alertDialog.setTitle("ERROR");
-                        alertDialog.setMessage(t.getMessage());
 
-                        Log.d("**", t.getMessage());
 
-                        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
-                                new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        dialog.dismiss();
-                                    }
-                                });
-                        alertDialog.show();
+                        Log.d("ERROR", t.getMessage());
+
                     }
                 });
 
@@ -357,10 +348,11 @@ public class NewFormClient extends AppCompatActivity implements VerticalStepperF
                 view = createmailStep();
                 break;
             case 4:
-                view = createViewAcountComapny();
+                view = createpassStep();
                 break;
             case 5:
-                view = createpassStep();
+
+                view = createViewAcountComapny();
                 break;
         }
         return view;
@@ -406,7 +398,7 @@ public class NewFormClient extends AppCompatActivity implements VerticalStepperF
             verticalStepperForm.setActiveStepAsCompleted();
         } else {
             // This error message is optional (use null if you don't want to display an error message)
-            String errorMessage = "El Nombre no puede estar Vacio";
+            String errorMessage = "El Mail no puede estar Vacio";
             verticalStepperForm.setActiveStepAsUncompleted(errorMessage);
         }
 
@@ -447,6 +439,7 @@ public class NewFormClient extends AppCompatActivity implements VerticalStepperF
         mail = new EditText(this);
         mail.setSingleLine(true);
 
+
         mail.addTextChangedListener(new TextWatcher() {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
@@ -473,6 +466,7 @@ public class NewFormClient extends AppCompatActivity implements VerticalStepperF
         // Here we generate programmatically the view that will be added by the system to the step content layout
         pass = new EditText(this);
         pass.setSingleLine(true);
+        pass.requestFocus();
         return pass;
     }
 
