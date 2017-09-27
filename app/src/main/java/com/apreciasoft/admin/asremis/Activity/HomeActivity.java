@@ -2167,7 +2167,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     // CONONTRO BOTON FLOTANTE //
     public  void  btnFlotingVisible(boolean isVisible)
     {
-        FloatingActionMenu btnService = (FloatingActionMenu) findViewById(R.id.material_design_android_floating_action_menu);
+        FloatingActionButton btnService = (FloatingActionButton) findViewById(R.id.fab);
 
         if(!isVisible)
         {
