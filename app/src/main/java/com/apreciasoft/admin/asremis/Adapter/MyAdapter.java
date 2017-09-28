@@ -7,8 +7,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.apreciasoft.admin.asremis.Activity.HomeActivity;
 import com.apreciasoft.admin.asremis.Entity.InfoTravelEntity;
 import com.apreciasoft.admin.asremis.R;
+import com.apreciasoft.admin.asremis.Util.GlovalVar;
 
 import java.util.List;
 
@@ -62,7 +64,15 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     public void onBindViewHolder(MyViewHolder holder, int position) {
         holder.mTextView.setText(mDataset.get(position).getCodTravel());
         holder.mtv_blah.setText(mDataset.get(position).getNameOrigin());
-        holder.mtv_amount.setText(mDataset.get(position).getTotalAmount());
+
+
+        if(HomeActivity.param25 == 1)
+        {
+            holder.mtv_amount.setText(mDataset.get(position).getTotalAmount());
+
+        }else {
+            holder.mtv_amount.setText("---");
+        }
 
         if(mDataset.get(position).getIsProcesCurrentAcount() == 1)
         {

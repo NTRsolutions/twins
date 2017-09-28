@@ -269,6 +269,20 @@ public  class InfoTravelEntity implements Serializable {
     public double distanceSave;
 
 
+
+    @Expose
+    @SerializedName("priceMinTravel")
+    public double priceMinTravel;
+
+
+    public double getPriceMinTravel() {
+        return priceMinTravel;
+    }
+
+    public void setPriceMinTravel(double priceMinTravel) {
+        this.priceMinTravel = priceMinTravel;
+    }
+
     public int getIsPaymentCash() {
         return isPaymentCash;
     }

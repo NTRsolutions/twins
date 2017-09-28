@@ -152,7 +152,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     public View parentLayout =  null;
 
     int PARAM_20  = 0;
-
+  public static  int param25 = 0;
 
     /*DIALOG*/
     public TravelDialog dialogTravel = null;
@@ -189,7 +189,10 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         // variable global //
         gloval = ((GlovalVar)getApplicationContext());
 
-       PARAM_20 =  Integer.parseInt(gloval.getGv_param().get(19).getValue());// PRECIO DE LISTA
+        param25 = Integer.parseInt(gloval.getGv_param().get(25).getValue());// SE PUEDE VER PRECIO EN VIAJE EN APP
+
+
+        PARAM_20 =  Integer.parseInt(gloval.getGv_param().get(19).getValue());// PRECIO DE LISTA
 
         // BOTON PARA PRE FINALIZAR UN VIAJE //
         btnPreFinish = (Button) findViewById(R.id.btn_pre_finish);
@@ -1031,7 +1034,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         double PARAM_5  = Double.parseDouble(gloval.getGv_param().get(4).getValue());// PRECIO LISTA TIEMPO DE ESPERA
         double PARAM_6  = Double.parseDouble(gloval.getGv_param().get(5).getValue());// PRECIO LISTA TIEMPO DE VUELTA
         double PARAM_16  = Double.parseDouble(gloval.getGv_param().get(15).getValue());// VALOR MINIMO DE VIAJE
-        int param25 = Integer.parseInt(gloval.getGv_param().get(25).getValue());// SE PUEDE VER VIAJE EN APP
+        int param25 = Integer.parseInt(gloval.getGv_param().get(25).getValue());// SE PUEDE VER PRECIO EN VIAJE EN APP
 
         double hor;
         double min = 0;
@@ -1078,22 +1081,23 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                     EXTRA_BENEFICIO = distance_beneficio * currentTravel.getBenefitsPreceKm();
 
 
-                    double METROS = 1000*(kilometros_total - distance_beneficio)/1;// CONVERTIMOS LO KILOMETRO A METROS
-                    amounCalculateGps =  currentTravel.getPriceDitanceCompany()/1000*METROS+EXTRA_BENEFICIO;
+                    double KILOMETROS = kilometros_total - distance_beneficio;// CONVERTIMOS LO KILOMETRO A METROS
+
+                    amounCalculateGps =  (KILOMETROS*currentTravel.getPriceDitanceCompany())+EXTRA_BENEFICIO;
 
                 }else
                 {
-                    amounCalculateGps = currentTravel.getPriceDitanceCompany()/1000*m_total;
+                    amounCalculateGps = kilometros_total * currentTravel.getPriceDitanceCompany();
                 }
 
 
             }else{
-                amounCalculateGps = currentTravel.getPriceDitanceCompany()/1000*m_total;// PARA CLIENTES EMPREA BUSCAMOS EL PRECIO DE ESA EMPRESA
+                amounCalculateGps = kilometros_total * currentTravel.getPriceDitanceCompany();// PARA CLIENTES EMPREA BUSCAMOS EL PRECIO DE ESA EMPRESA
 
                 if(isRoundTrip)
                 {
-                    amounCalculateGps = currentTravel.getPriceDitanceCompany()/1000*m_ida;
-                    amounCalculateGps =  amounCalculateGps + currentTravel.getPriceReturn()/1000*m_vuelta;
+                    amounCalculateGps = kilometros_total  * currentTravel.getPriceDitanceCompany();
+                    amounCalculateGps =  amounCalculateGps + kilometros_vuelta * currentTravel.getPriceReturn();
 
                 }
             }
@@ -1103,21 +1107,28 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         }
         else // PARTICULARES
         {
-            amounCalculateGps = PARAM_1/1000*m_total;// PARA CLIENTES PARTICULARES BUSCAMOS EL PRECIO DE LISTA
+            amounCalculateGps = kilometros_total * PARAM_1;// PARA CLIENTES PARTICULARES BUSCAMOS EL PRECIO DE LISTA
 
             if(isRoundTrip)
             {
-                amounCalculateGps = PARAM_1/1000*m_ida;
-                amounCalculateGps =  amounCalculateGps + PARAM_6/1000*m_vuelta;
+                amounCalculateGps = kilometros_ida * PARAM_1;
+                amounCalculateGps =  amounCalculateGps + kilometros_vuelta * PARAM_6;
 
             }
         }
 
 
+        // SUMA EL ORIGEN PACTADO //
         amounCalculateGps =  amounCalculateGps + currentTravel.getAmountOriginPac();
 
         //VALIDAMOS SI EL VIAJE NO SUPERA EL MINUMO//
-        if(amounCalculateGps <  PARAM_16){ amounCalculateGps = PARAM_16;}
+        if(currentTravel.getIsTravelComany() == 1)// PARA EMPRESA
+        {
+            if(amounCalculateGps <  currentTravel.getPriceMinTravel()){ amounCalculateGps = currentTravel.getPriceMinTravel();}
+        }else {// PARA PARTICULARES
+          if(amounCalculateGps <  PARAM_16){ amounCalculateGps = PARAM_16;}
+        }
+
 
 
         hor=min/3600;

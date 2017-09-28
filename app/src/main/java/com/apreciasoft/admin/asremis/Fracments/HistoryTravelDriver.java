@@ -66,6 +66,9 @@ public class HistoryTravelDriver extends Fragment {
 
         rv = (RecyclerView) myView.findViewById(R.id.rv_recycler_view);
         rv.setHasFixedSize(true);
+
+
+
         adapter = new MyAdapter(list);
         rv.setAdapter(adapter);
 
