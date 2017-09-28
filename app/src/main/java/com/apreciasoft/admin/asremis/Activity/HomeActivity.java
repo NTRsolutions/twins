@@ -1031,6 +1031,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         double PARAM_5  = Double.parseDouble(gloval.getGv_param().get(4).getValue());// PRECIO LISTA TIEMPO DE ESPERA
         double PARAM_6  = Double.parseDouble(gloval.getGv_param().get(5).getValue());// PRECIO LISTA TIEMPO DE VUELTA
         double PARAM_16  = Double.parseDouble(gloval.getGv_param().get(15).getValue());// VALOR MINIMO DE VIAJE
+        int param25 = Integer.parseInt(gloval.getGv_param().get(25).getValue());// SE PUEDE VER VIAJE EN APP
 
         double hor;
         double min = 0;
@@ -1099,10 +1100,6 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
 
 
-
-
-            Log.d("-TRAVEL-","EMPRESA");
-
         }
         else // PARTICULARES
         {
@@ -1145,9 +1142,22 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             }
         }
 
+        if(param25 == 1) {
+            txtTimeslep.setText(tiempoTxt + " Seg - " + Double.toString(round(extraTime, 2)) + "$");
+        }else {
+            txtTimeslep.setText(tiempoTxt + " Seg");
+        }
 
-        txtTimeslep.setText(tiempoTxt+" Seg - "+Double.toString(round(extraTime,2))+"$");
-        distance_txt.setText(df.format(kilometros_total) + " Km - "+Double.toString(round(amounCalculateGps,2))+"$");
+
+        if(param25 == 1) {
+            distance_txt.setText(df.format(kilometros_total) + " Km - "+Double.toString(round(amounCalculateGps,2))+"$");
+
+        }else {
+            distance_txt.setText(df.format(kilometros_total) + " Km ");
+
+        }
+
+
 
         double totalFinal = 0;
 
@@ -1171,7 +1181,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         totalFinal =  amounCalculateGps + extraTime + myDouble + parkin;
 
 
-        int param25 = Integer.parseInt(gloval.getGv_param().get(25).getValue());
+
         if(param25 == 1){
             txtMount.setText(Double.toString(round(totalFinal,2))+"$");
         }

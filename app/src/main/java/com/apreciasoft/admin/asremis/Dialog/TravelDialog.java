@@ -41,7 +41,7 @@ public class TravelDialog extends DialogFragment {
 
         final TextView title1 = (TextView) rootView.findViewById(R.id.txt_title);
         final TextView title2 = (TextView) rootView.findViewById(R.id.txt_title2);
-       // final TextView title3 = (TextView) rootView.findViewById(R.id.txt_title3);
+        final TextView title3 = (TextView) rootView.findViewById(R.id.txt_pasajeros);
        // final TextView title4 = (TextView) rootView.findViewById(R.id.txt_title4);
         //final TextView telefono = (TextView) rootView.findViewById(R.id.txt_title1);
 
@@ -64,7 +64,7 @@ public class TravelDialog extends DialogFragment {
        // telefono.setText(currentTravel.getPhoneNumber());
         title1.setText(currentTravel.getCodTravel());
         title2.setText(currentTravel.getClient());
-       // title3.setText(currentTravel.getPasajero());
+        title3.setText(currentTravel.getPasajero());
         titleOrigin.setText(currentTravel.getNameOrigin());
         titleDestination.setText(currentTravel.getNameDestination());
 

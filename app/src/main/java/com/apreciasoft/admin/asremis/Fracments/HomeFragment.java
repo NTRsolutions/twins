@@ -100,6 +100,7 @@ public class HomeFragment extends Fragment implements
         public static TextView txt_calling_info = null;
         public static TextView txt_observationFromDriver = null;
         public static TextView txt_amount_info = null;
+        public static TextView txt_pasajeros_info = null;
         public MapFragment  mMap;
         public static int PARAM_26  = 0;
 
@@ -174,6 +175,9 @@ public class HomeFragment extends Fragment implements
         HomeFragment.txt_amount_info = (TextView) getActivity().findViewById(R.id.txt_amount_info);
         HomeFragment.txt_calling_info = (TextView) getActivity().findViewById(R.id.txt_calling_info);
         HomeFragment.txt_observationFromDriver = (TextView) getActivity().findViewById(R.id.txt_observationFromDriver);
+        HomeFragment.txt_pasajeros_info = (TextView) getActivity().findViewById(R.id.txt_pasajeros_info);
+
+
 
         txtStatus.setText("SERVICIO ACTIVO");
 
@@ -686,10 +690,13 @@ public class HomeFragment extends Fragment implements
         HomeFragment.txt_calling_info.setText("No se cargo informacion");
         HomeFragment.txt_observationFromDriver.setText(currentTravel.getObservationFromDriver());
 
+        HomeFragment.txt_pasajeros_info.setText(currentTravel.getPasajero());
+
         HomeFragment.txt_destination_info.setText(currentTravel.getNameDestination());
         HomeFragment.txt_origin_info.setText(currentTravel.getNameOrigin());
         HomeFragment.txt_km_info.setText(currentTravel.getDistanceLabel());
         HomeFragment.txtStatus.setText(currentTravel.getNameStatusTravel());
+
 
 
         if(currentTravel.getRoundTrip() != null) {
@@ -738,6 +745,8 @@ public class HomeFragment extends Fragment implements
         HomeFragment.txt_km_info.setText("0Km");
         HomeFragment.txt_amount_info.setText("0$");
         HomeFragment.txtStatus.setText("SERVICIO ACTIVO");
+        HomeFragment.txt_pasajeros_info.setText("No se cargo informacion");
+
         HomeFragment.txt_date_info.setText("");
 
     }
